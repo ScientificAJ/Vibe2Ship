@@ -1,0 +1,12 @@
+{
+  "name": "Community Hero",
+  "description": "An AI-powered civic issue reporting and resolution platform powered by real Gemini analysis and Firestore.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

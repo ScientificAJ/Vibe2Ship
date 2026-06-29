@@ -1,0 +1,132 @@
+{
+  "entities": {
+    "Issue": {
+      "title": "Issue",
+      "description": "A reported community civic issue",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string", "enum": ["Roads", "Drainage", "Streetlight", "Sanitation", "Water", "Public Safety", "Electrical", "Other"] },
+        "severity": { "type": "string", "enum": ["Low", "Medium", "High", "Critical"] },
+        "severity_reason": { "type": "string" },
+        "summary": { "type": "string" },
+        "recommended_action": { "type": "string" },
+        "safety_warning": { "type": "string" },
+        "status": { "type": "string", "enum": ["Reported", "In Progress", "Resolved", "Deprecated"] },
+        "lat": { "type": "number" },
+        "lng": { "type": "number" },
+        "address": { "type": "string" },
+        "mediaUrls": { "type": "array" },
+        "trust_score": { "type": "number" },
+        "verification_count": { "type": "number" },
+        "evidence_count": { "type": "number" },
+        "upvotes": { "type": "number" },
+        "amplify_count": { "type": "number" },
+        "reporterId": { "type": "string" },
+        "isAnonymous": { "type": "boolean" },
+        "contributors": { "type": "array" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "resolvedAt": { "type": "string" }
+      },
+      "required": ["title", "category", "severity", "status", "lat", "lng", "address", "mediaUrls"]
+    },
+    "Verification": {
+      "title": "Verification",
+      "description": "Community verification of an issue",
+      "type": "object",
+      "properties": {
+        "issueId": { "type": "string" },
+        "userId": { "type": "string" },
+        "mediaUrl": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["issueId", "userId", "mediaUrl", "createdAt"]
+    },
+    "Comment": {
+      "title": "Comment",
+      "description": "User comments on an issue, including @AI replies",
+      "type": "object",
+      "properties": {
+        "issueId": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userPhoto": { "type": "string" },
+        "text": { "type": "string" },
+        "isAI": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["issueId", "userId", "text", "createdAt"]
+    },
+    "User": {
+      "title": "User",
+      "description": "A user profile tracking reputation, badges, etc.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "points": { "type": "number" },
+        "badges": { "type": "array" },
+        "isAnonymous": { "type": "boolean" },
+        "dailyReportCount": { "type": "number" }
+      },
+      "required": ["id", "points", "badges", "isAnonymous"]
+    },
+    "Ward": {
+      "title": "Ward",
+      "description": "Ward/zone health metrics",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "healthScore": { "type": "number" },
+        "categoryScores": { "type": "object" }
+      },
+      "required": ["id", "name", "healthScore"]
+    },
+    "AppNotification": {
+      "title": "AppNotification",
+      "description": "Alerts for reported issue updates, comments, and resolutions",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "issueId": { "type": "string" },
+        "issueTitle": { "type": "string" },
+        "type": { "type": "string", "enum": ["update", "comment", "resolution"] },
+        "message": { "type": "string" },
+        "read": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "issueId", "issueTitle", "type", "message", "read", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/issues/{issueId}": {
+      "schema": "Issue",
+      "description": "The main collection of civic issues"
+    },
+    "/verifications/{verificationId}": {
+      "schema": "Verification",
+      "description": "Independent citizen confirmations of reported issues"
+    },
+    "/comments/{commentId}": {
+      "schema": "Comment",
+      "description": "Discussion threads for reported issues"
+    },
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User records for gamification, auth, and reputation"
+    },
+    "/wards/{wardId}": {
+      "schema": "Ward",
+      "description": "Ward-level metrics"
+    },
+    "/notifications/{notificationId}": {
+      "schema": "AppNotification",
+      "description": "Direct notifications for users"
+    }
+  }
+}

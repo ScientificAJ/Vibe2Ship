@@ -1,0 +1,38 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow anyone to read all collections so they can see civic issues on maps and feeds
+    match /issues/{issueId} {
+      allow read: if true;
+      allow create, update: if request.auth != null;
+      allow delete: if false; // Prevention of user deletion for transparency
+    }
+    
+    match /verifications/{verificationId} {
+      allow read: if true;
+      allow create: if request.auth != null;
+      allow update, delete: if false;
+    }
+
+    match /comments/{commentId} {
+      allow read: if true;
+      allow create: if request.auth != null;
+      allow update, delete: if false;
+    }
+
+    match /users/{userId} {
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    match /notifications/{notificationId} {
+      allow read, update, delete: if request.auth != null && resource.data.userId == request.auth.uid;
+      allow create: if request.auth != null;
+    }
+
+    match /wards/{wardId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+  }
+}

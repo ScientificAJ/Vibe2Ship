@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-beach-sand: #FDFBF7;
+  --color-beach-sand-dark: #F5EFEB;
+  --color-beach-cream: #F8F1E5;
+  --color-beach-driftwood: #31211A;
+  --color-beach-ocean: #0284c7;
+  --color-beach-seafoam: #14b8a6;
+  --color-beach-coral: #f97316;
+  --color-beach-sun: #f59e0b;
+}
+
+body {
+  background-color: var(--color-beach-sand);
+  color: var(--color-beach-driftwood);
+  font-family: var(--font-sans);
+}
